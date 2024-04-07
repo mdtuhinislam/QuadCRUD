@@ -1,0 +1,47 @@
+﻿@using QuadCRUD.ViewModels;
+@model StudentVM
+
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <form method="post">
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" id="Name" name="Name" placeholder="Enter Name" value="@Model.Name">
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="Gender" value="1" id="flexRadioDefault1" @(Model.Gender == 1 ? "checked" : "")>
+                <label class="form-check-label" for="flexRadioDefault1">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="Gender" value="0" id="flexRadioDefault2" @(Model.Gender == 0 ? "checked" : "")>
+                <label class="form-check-label" for="flexRadioDefault2">Female</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="Gender" value="2" id="flexRadioDefault3" @(Model.Gender == 2 ? "checked" : "")>
+                <label class="form-check-label" for="flexRadioDefault3">Others</label>
+            </div>
+            <div class="form-group">
+                <label for="DOB">DOB</label>
+                <input type="date" class="form-control" id="DOB" name="DOB" value="@Model.DOB.ToString("yyyy-MM-dd")">
+            </div>
+            <div class="form-group">
+            <label for="ClassId">Class</label>
+                <select class="form-control" asp-for="ClassId">
+                    <option value="@Model.ClassId"></option>
+                    @if (Model.Classes != null)
+                    {
+                        @foreach (var classItem in Model.Classes)
+                        {
+                            <option value="@classItem.Id">@classItem.Name</option>
+                        }
+                    }
+
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mt-lg-3">Submit</button>
+            <a href="@Url.Action("List", "Student")" class="btn btn-success mt-lg-3">List</a>
+        </form>
+    </div>
+    <div class="col-lg-3"></div>
+</div>

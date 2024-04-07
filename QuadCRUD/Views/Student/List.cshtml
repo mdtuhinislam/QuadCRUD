@@ -1,0 +1,69 @@
+﻿@model IEnumerable<QuadCRUD.Models.Student>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create" style="color: Green; text-decoration:none">Add New Student Info</a>
+</p>
+<p>List of Student(s)</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Class)
+            </th>
+            <th>
+                DOB
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class.Name)
+            </td>
+            <td>
+             @String.Format("{0:dd-MM-yyyy}", item.DOB)
+            </td>
+            <td>
+                    @{
+                        string gender = "";
+                        if (item.Gender == 0)
+                        {
+                            gender = "Female";
+                        }
+                        if (item.Gender == 1)
+                        {
+                            gender = "Male";
+                        }
+                        if(item.Gender== 2)
+                        {
+                            gender = "Others";
+                        }
+                    }
+                        @gender
+            </td>
+            <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a class="btn btn-success" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
